@@ -27,4 +27,4 @@ Terminal confirmation of successful authentication and layer transfer to the reg
 ![CLI Push Success](cli_docker_push_success.png)
 
 ---
-*Project completed as part of [Insert Course/Project Name].*
+*Project completed as part of Docker Swarm.*
