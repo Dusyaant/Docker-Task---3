@@ -28,8 +28,8 @@ sudo mkdir -p /var/opt/nginx
 Authenticate with Docker Hub, then build and push the image:
 
 ```bash
-docker build -t <your-dockerhub-username>/custom-nginx:latest .
-docker push <your-dockerhub-username>/custom-nginx:latest
+docker build -t dusyaant/custom-nginx:latest .
+docker push dusyaant/custom-nginx:latest
 
 ```
 
@@ -45,15 +45,9 @@ docker compose up -d
 
 * **Verify Bind Mount:**
 ```bash
-docker inspect <container_name> | grep -A 10 "Mounts"
+docker inspect container | grep -A 10 "Mounts"
 
 ```
 
 
-* **Access Application:** Open a web browser and navigate to `http://<EC2_PUBLIC_IP>` to view the deployed application.
-
-```
-
-Replace `<your-dockerhub-username>` and `<container_name>` with your actual details before committing this `README.md` file to your repository.
-
-```
+* **Access Application:** Open a web browser and navigate to `http://54.208.241.183` to view the deployed application.
