@@ -1,30 +1,59 @@
-# Docker Task 3: Nginx Deployment with Bind Mounts
+# Docker Task 3
+# Custom Nginx Docker Deployment
 
-## Overview
-This project demonstrates containerization skills, specifically deploying a custom Nginx web server on an **AWS EC2** instance. The core objective was to configure a secure, persistent **bind mount** and host the resulting custom image on **Docker Hub**.
+## Description
+This repository contains the configuration to build a custom Nginx Docker image and deploy it using Docker Compose. The deployment is designed to run on an AWS EC2 instance and utilizes a volume bind mount mapping to `/var/opt/nginx` inside the container.
 
 ## Tech Stack
-* **Cloud Infrastructure:** AWS EC2 (Amazon Linux 2023)
-* **Containerization:** Docker & Docker Compose
-* **Registry:** Docker Hub
+- AWS EC2
+- Docker
+- Docker Compose
 
-## Key Deliverables
-* **Custom Bind Mount:** Configured a volume mapping local directory `./html_data` to the container path `/var/opt/nginx`.
-* **Image Registry:** Built and pushed a custom Nginx image (`prospendeo/custom-nginx:task3`) to Docker Hub.
+## Repository Contents
+- `Dockerfile`: Instructions for building the custom Nginx image.
+- `docker-compose.yml`: Defines the web service, port mappings (80:80), and the specific `/var/opt/nginx` volume bind mount.
+- `index.html`: Custom web page served by the Nginx container.
+- Verification Screenshots: CLI push success, Docker Hub registry confirmation, and container inspection showing the bind mount.
 
-## Evidence of Completion
+## Deployment Steps
 
-### 1. Docker Hub Repository
-Verification of the successfully pushed custom image.
-![Docker Hub Repository](docker_hub_repository_registry.png)
+**1. Prepare the Host Directory**
+Create the required directory on the EC2 host for the bind mount:
+```bash
+sudo mkdir -p /var/opt/nginx
 
-### 2. Container Inspect (Bind Mount Verification)
-Confirmation that the bind mount is correctly mapped to the required destination.
-![Bind Mount Verification](container_inspect_bind_mount.png)
+```
 
-### 3. CLI Push Success
-Terminal confirmation of successful authentication and layer transfer to the registry.
-![CLI Push Success](cli_docker_push_success.png)
+**2. Build and Push the Docker Image**
+Authenticate with Docker Hub, then build and push the image:
 
----
-*Project completed as part of Docker Swarm.*
+```bash
+docker build -t <your-dockerhub-username>/custom-nginx:latest .
+docker push <your-dockerhub-username>/custom-nginx:latest
+
+```
+
+**3. Run the Container**
+Deploy the application using Docker Compose in detached mode:
+
+```bash
+docker compose up -d
+
+```
+
+**4. Verification**
+
+* **Verify Bind Mount:**
+```bash
+docker inspect <container_name> | grep -A 10 "Mounts"
+
+```
+
+
+* **Access Application:** Open a web browser and navigate to `http://<EC2_PUBLIC_IP>` to view the deployed application.
+
+```
+
+Replace `<your-dockerhub-username>` and `<container_name>` with your actual details before committing this `README.md` file to your repository.
+
+```
