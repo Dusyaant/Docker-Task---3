@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  web:
+    image: <dockerhub-username>/custom-nginx:latest
+    container_name: nginx-custom-app
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - /var/opt/nginx:/var/opt/nginx
